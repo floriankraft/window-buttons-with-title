@@ -781,7 +781,7 @@ WindowButtonApplet.prototype = {
 		 w=global.display.focus_window;
 		let buttons=this.buttons_style.split(':');
 
-		if(w.get_maximized()){
+		if(w && w.get_maximized()){
 
 
 
