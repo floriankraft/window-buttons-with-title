@@ -52,12 +52,12 @@ WindowButtonApplet.prototype = {
   _init: function(orientation, metadata, panelHeight, instance_id) {
     Applet.Applet.prototype._init.call(this, orientation, panelHeight, instance_id);
 
+    this.uuid = metadata.uuid;
     this.instance_id = instance_id;
     this.appletPath = metadata.path;
 
     try {
-      this.settings = new Settings.AppletSettings(this, "window-buttons-with-title@floriankraft", this.instance_id);
-
+      this.settings = new Settings.AppletSettings(this, this.uuid, this.instance_id);
       this.settings.bindProperty(Settings.BindingDirection.IN, "title-button-action", "titleButtonAction", this.on_settings_changed, null);
       this.settings.bindProperty(Settings.BindingDirection.IN, "title-width-option", "titleWidthOption", this.on_settings_changed, null);
       this.settings.bindProperty(Settings.BindingDirection.IN, "title-width", "titleWidth", this.on_settings_changed, null);
@@ -580,12 +580,11 @@ WindowButtonApplet.prototype = {
   },
 
   _cinnamonmaximus: function() {
-    Util.spawn(['firefox', 'http://cinnamon-spices.linuxmint.com/extensions/view/29']);
+    Util.spawn(["xdg-open", 'http://cinnamon-spices.linuxmint.com/extensions/view/29']);
   }
 };
 
 function main(metadata, orientation, panelHeight, instance_id) {
-  //appletPath = metadata.path;
   let myApplet = new WindowButtonApplet(orientation, metadata, panelHeight, instance_id);
   return myApplet;
 }
